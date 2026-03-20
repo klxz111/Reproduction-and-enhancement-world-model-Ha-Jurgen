@@ -1,17 +1,16 @@
 # WorldModel-Mamba2-CarRacing: 本地化硬件感知的世界模型复现
 
-[![Python 3.10](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
-[![PyTorch 2.2.2](https://img.shields.io/badge/PyTorch-2.2.2-red.svg)](https://pytorch.org/)
-[![CUDA 12.1](https://img.shields.io/badge/CUDA-12.1-green.svg)](https://developer.nvidia.com/cuda-12-1-0-download-archive)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
+[![PyTorch 2.9](https://img.shields.io/badge/PyTorch-2.9-red.svg)](https://pytorch.org/)
+[![CUDA 12.8](https://img.shields.io/badge/CUDA-12.8-green.svg)](https://developer.nvidia.com/cuda-12-8-0-download-archive)
 [![CarRacing-v0](https://img.shields.io/badge/Env-CarRacing--v0-orange.svg)](https://gymnasium.farama.org/environments/box2d/car_racing/)
 
 > **当前进度**：Phase 1 数据采集与视觉降维 - 离线视觉特征提取（DINOv2）阶段
-
 本项目是**完全本地化、硬件感知极致优化**的世界模型（World Model）复现工程，核心是用Mamba2替换传统RNN/Transformer作为动力学建模核心，在CarRacing强化学习基准上实现端到端的视觉降维-世界预测-规划控制全链路。全程针对消费级硬件（i7-14700HX + RTX4070 Laptop 8GB）做极致适配，无云端依赖，100%算力/数据自主可控。
 
 ## 🔥 核心特性
 - **硬件适配**：针对8GB显存/16GB内存做多层级防OOM设计，榨干i7-14700HX多核性能与RTX4070 Tensor Core算力
-- **全链路流程**：数据采集→视觉降维→动力学训练→MPC控制四大环节完全解耦，单独优化、单独管控资源
+- **全链路设计**：数据采集→视觉降维→动力学训练→MPC控制四大环节完全解耦，单独优化、单独管控资源
 - **显存友好**：抛弃VAE联合训练，采用冻结DINOv2做离线视觉降维，Mamba2动力学模型峰值显存占用≤6GB
 - **实时MPC控制**：基于Mamba2并行推理的随机射击MPC，无需PPO训练，直接实现CarRacing闭环控制
 - **学术级可复现性**：完整的配置、日志、校验标准，所有环节可复现、可验证
@@ -23,24 +22,36 @@
 | 显卡 | NVIDIA RTX4070 Laptop（8GB GDDR6） | 混合精度训练/推理、Tensor Core加速、显存极致管控 |
 | 内存 | 16GB DDR5 5600MT/s | 内存友好型数据流水线、分块加载 |
 | 存储 | 1TB NVMe SSD（E盘451GB可用） | HDF5高性能序列化、规避小文件IO瓶颈 |
+
 ## 🛠️ 环境搭建
+
 ### 1. 系统环境准备
-- 确认NVIDIA驱动版本≥537.42（适配CUDA 12.2）
+- 确认NVIDIA驱动版本≥560.00（适配CUDA 12.8）
 - 关闭显存占用冗余进程（AI绘图、浏览器硬件加速等），保证空闲显存≥7.5GB
 - 虚拟内存迁移至E盘（最小16GB，最大32GB）
+
 ### 2. 隔离Python环境创建
 ```bash
 # 创建conda环境
-conda create -n worldmodel-mamba2 python=3.10 -y
+conda create -n worldmodel-mamba2 python=3.12 -y
 conda activate worldmodel-mamba2
-# 安装PyTorch（适配CUDA 12.1）
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-# 安装核心依赖
+
+# 安装PyTorch（适配CUDA 12.8）
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+
+# 手动安装Mamba2依赖组件（预编译版本）
+# 下载对应CUDA 12.8 + Python 3.12的预编译包
+# causal-conv1d: https://github.com/Dao-AILab/causal-conv1d/releases
+# mamba-ssm: https://github.com/state-spaces/mamba/releases
+pip install <下载的causal-conv1d包路径>
+pip install <下载的mamba-ssm包路径>
+
+# 安装其他核心依赖
 pip install gym[box2d]==0.26.2 swig h5py tqdm
-pip install mamba-ssm[causal-conv1d]
 pip install transformers accelerate
 pip install tensorboard matplotlib
 ```
+
 ### 3. 环境校验
 ```python
 import torch
@@ -146,6 +157,7 @@ python train.py \
   --gradient_checkpointing True
 ```
 
+
 #### 2. 训练监控
 ```bash
 tensorboard --logdir 03_logs/
@@ -207,7 +219,7 @@ python run_control.py \
 ## 🐞 常见问题与解决方案
 | 问题 | 解决方案 |
 |------|----------|
-| Mamba2安装报错 | 确保CUDA≥12.0，升级pip后重新安装：`pip install --upgrade pip` |
+| Mamba2安装报错 | 确保CUDA≥12.8，从预编译包安装：<br>1. causal-conv1d: https://github.com/Dao-AILab/causal-conv1d/releases<br>2. mamba-ssm: https://github.com/state-spaces/mamba/releases |
 | 数据采集进程卡死 | 降低进程数至10，检查环境是否正常初始化 |
 | 训练时OOM | 启用梯度检查点，降低Batch Size至4，关闭不必要的后台程序 |
 | 推理速度慢 | 启用FP16/INT8量化，关闭TensorBoard监控 |
