@@ -12,7 +12,7 @@
 - **硬件适配**：针对8GB显存/16GB内存做多层级防OOM设计，榨干i7-14700HX多核性能与RTX4070 Tensor Core算力
 - **全链路设计**：数据采集→视觉降维→动力学训练→MPC控制四大环节完全解耦，单独优化、单独管控资源
 - **显存友好**：抛弃VAE联合训练，采用冻结DINOv2做离线视觉降维，Mamba2动力学模型峰值显存占用≤6GB
-- **实时MPC控制**：基于Mamba2并行推理的随机射击MPC，无需PPO训练，直接实现CarRacing闭环控制
+- **实时MPC控制**：基于Mamba2并行推理的MPC，无需PPO训练，直接实现CarRacing闭环控制
 - **学术级可复现性**：完整的配置、日志、校验标准，所有环节可复现、可验证
 
 ## 📋 硬件基准（适配依据）
@@ -231,8 +231,6 @@ python run_control.py \
 3. World Models (ICML 2018)
 4. Model Predictive Control for Reinforcement Learning (NeurIPS 2020)
 
-## 📄 许可证
-本项目仅供学习研究使用，基于MIT许可证开源。
 
 ## 📞 问题反馈
 如有复现过程中的问题，可提交Issue，包含：
