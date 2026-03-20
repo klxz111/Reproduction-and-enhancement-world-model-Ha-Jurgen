@@ -219,7 +219,7 @@ python run_control.py \
 ## 🐞 常见问题与解决方案
 | 问题 | 解决方案 |
 |------|----------|
-| Mamba2安装报错 | 确保CUDA≥12.8，从预编译包安装：<br>1. causal-conv1d: https://github.com/Dao-AILab/causal-conv1d/releases<br>2. mamba-ssm: https://github.com/state-spaces/mamba/releases |
+| Mamba安装报错 | 确保CUDA≥12.8，从预编译包安装：<br>1. causal-conv1d: https://github.com/Dao-AILab/causal-conv1d/releases<br>2. mamba-ssm: https://github.com/state-spaces/mamba/releases |
 | 数据采集进程卡死 | 降低进程数至10，检查环境是否正常初始化 |
 | 训练时OOM | 启用梯度检查点，降低Batch Size至4，关闭不必要的后台程序 |
 | 推理速度慢 | 启用FP16/INT8量化，关闭TensorBoard监控 |
