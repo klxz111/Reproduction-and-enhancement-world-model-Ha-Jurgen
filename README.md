@@ -125,7 +125,8 @@ python extract_features.py \
   --save_dir 01_data/latent_features/ \
   --batch_size 2 \
   --fp16 True
-```
+```<img width="1020" height="1437" alt="image" src="https://github.com/user-attachments/assets/ca23cbac-ebc5-405b-993b-6a230a7cfe88" />
+
 🔧 **Debug记录（核心问题&解决方案）**：
 | 问题类型 | 具体现象 | 分析过程 | 解决方案 | 验证结果 |
 |----------|----------|----------|----------|----------|
