@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 from datetime import timedelta
 
-# ===================== 核心配置（与你的特征提取代码完全对齐） =====================
+# ===================== 核心配置（与特征提取代码完全对齐） =====================
 DATA_DIR = "/mnt/e/WorldModel-Mamba2-CarRacing/01_data/raw_rollouts"
 FEAT_DIR = "/mnt/e/WorldModel-Mamba2-CarRacing/02_features/dinov2_small"
 
@@ -41,7 +41,7 @@ def estimate_running_time(file_count, avg_time_per_file=7.5):
     """
     预估总运行时间
     :param file_count: 已处理的文件总数
-    :param avg_time_per_file: 单文件平均耗时（分钟），从你的日志看约 7~8 分钟
+    :param avg_time_per_file: 单文件平均耗时（分钟），从日志看约 7~8 分钟
     """
     total_min = file_count * avg_time_per_file
     total_sec = int(total_min * 60)
