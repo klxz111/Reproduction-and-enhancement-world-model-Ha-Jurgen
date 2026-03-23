@@ -5,7 +5,7 @@
 [![CUDA 12.8](https://img.shields.io/badge/CUDA-12.8-green.svg)](https://developer.nvidia.com/cuda-12-8-0-download-archive)
 [![CarRacing-v0](https://img.shields.io/badge/Env-CarRacing--v0-orange.svg)](https://gymnasium.farama.org/environments/box2d/car_racing/)
 
-> **当前进度**：Phase2 构建mamba模型（模型架构已跑通 目前着手于训练调优和推理）
+> **当前进度**：Phase2 构建mamba模型（模型架构验证已跑通 目前着手于训练调优和推理）
 本项目是**完全本地化、硬件感知极致优化**的世界模型（World Model）复现工程，核心是用Mamba2替换传统RNN/Transformer作为动力学建模核心，在CarRacing强化学习基准上实现端到端的视觉降维-世界预测-规划控制全链路。全程针对消费级硬件（i7-14700HX + RTX4070 Laptop 8GB）做极致适配，无云端依赖，100%算力/数据自主可控。
 
 ## 🔥 核心特性
