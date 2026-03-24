@@ -1,4 +1,4 @@
-# WorldModel-Mamba-CarRacing: 本地化硬件感知的世界模型复现
+# Mamba-based World Model on CarRacing
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![PyTorch 2.9](https://img.shields.io/badge/PyTorch-2.9-red.svg)](https://pytorch.org/)
