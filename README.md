@@ -6,7 +6,7 @@
 [![CarRacing-v0](https://img.shields.io/badge/Env-CarRacing--v0-orange.svg)](https://gymnasium.farama.org/environments/box2d/car_racing/)
 
 > **当前进度**：Phase2 构建mamba模型（模型架构验证已跑通 目前着手于训练调优和推理）
-本项目是**完全本地化、硬件感知极致优化**的世界模型（World Model）复现工程，一个基于 Mamba 的 CarRacing 世界模型复现项目，重点关注在消费级 GPU 约束下的训练、推理与控制链路实现。当前已完成基础架构搭建与阶段性验证，仓库主要展示数据处理、模型组织、实验配置和可复现工程流程。
+本项目是世界模型（World Model）复现工程，一个基于 Mamba 的 CarRacing 世界模型复现项目，重点关注在消费级 GPU 约束下的训练、推理与控制链路实现。当前已完成基础架构搭建与阶段性验证，仓库主要展示数据处理、模型组织、实验配置和可复现工程流程。
 
 
 ## 📋 测试环境
